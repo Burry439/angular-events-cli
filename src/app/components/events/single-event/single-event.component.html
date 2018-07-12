@@ -3,7 +3,7 @@
   <mat-card-content>
       <div mat-dialog-title *ngIf="loggedIn">
           <button class="event-options" *ngIf="(event.host._id == user.id || event.host.id == user.id)  && !editMode && !editImageMode" mat-raised-button color="warn" (click)="onDeleteEvent()">delete</button>
-          <button class="event-options" *ngIf="(event.host._id == user.id || event.host.id == user.id) && !editMode && !editImageMode" mat-raised-button color="primary" (click)="onEditEvent()">Event</button>
+          <button class="event-options" *ngIf="(event.host._id == user.id || event.host.id == user.id) && !editMode && !editImageMode" mat-raised-button color="primary" (click)="onEditEvent()">Edit</button>
           <button class="change-pic" *ngIf="(event.host._id == user.id || event.host.id == user.id) && !editMode && !editImageMode" mat-raised-button color="accent" (click)="fileInput.click()">Change Image</button>
           <button  *ngIf="editImageMode && !editMode" mat-raised-button color="primary" (click)="uploadPhoto()">save</button>
           <button  *ngIf="editImageMode && !editMode"  mat-raised-button color="warn" (click)="cancel()">Cancel</button>
