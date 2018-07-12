@@ -9,8 +9,8 @@
     </mat-card-content>
     <mat-card-actions *ngIf="loggedIn">
         <button class="btns" *ngIf="comment.commenter._id == user.id && comment._id != theComment"mat-mini-fab color="primary" (click)="onEditcomment(i)">Edit</button>
-        <button class="btns" *ngIf="comment.commenter._id == user.id &&  comment._id == theComment"mat-mini-fab color="primary" (click)="onConfirmEditcomment(i)" [disabled]="editedComment == null">Confirm changes</button>
-        <button class="btns" *ngIf="comment.commenter._id == user.id &&  comment._id == theComment"mat-mini-fab color="primary" (click)="cancel()">Cancel</button>
+        <button class="confirm" *ngIf="comment.commenter._id == user.id &&  comment._id == theComment" mat-raised-button color="primary" (click)="onConfirmEditcomment(i)" [disabled]="editedComment == null">Confirm changes</button>
+        <button class="cancel" *ngIf="comment.commenter._id == user.id &&  comment._id == theComment" mat-raised-button color="primary" (click)="cancel()">Cancel</button>
         <button class="btns" *ngIf="comment.commenter._id == user.id &&  comment._id != theComment" mat-mini-fab color="warn" (click)="onDeleteComment(i)">Delete</button>
         <textarea *ngIf="comment.commenter._id == user.id && comment._id == theComment" type="text"[(ngModel)]="editedComment" [placeholder]='comment.comment'></textarea>
     </mat-card-actions>
