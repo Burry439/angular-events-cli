@@ -8,10 +8,10 @@
       <p>{{comment.comment}}</p>
     </mat-card-content>
     <mat-card-actions *ngIf="loggedIn">
-        <button  *ngIf="comment.commenter._id == user.id && comment._id != theComment" mat-raised-button color="primary" (click)="onEditcomment(i)">Edit</button>
-        <button  *ngIf="comment.commenter._id == user.id &&  comment._id == theComment" mat-raised-button color="primary" (click)="onConfirmEditcomment(i)" [disabled]="editedComment == null">Confirm changes</button>
-        <button  *ngIf="comment.commenter._id == user.id &&  comment._id == theComment" mat-raised-button color="primary" (click)="cancel()">Cancel</button>
-        <button *ngIf="comment.commenter._id == user.id &&  comment._id != theComment"  mat-raised-button color="warn" (click)="onDeleteComment(i)">Delete</button>
+        <button class="btns" *ngIf="comment.commenter._id == user.id && comment._id != theComment"mat-mini-fab color="primary" (click)="onEditcomment(i)">Edit</button>
+        <button class="btns" *ngIf="comment.commenter._id == user.id &&  comment._id == theComment"mat-mini-fab color="primary" (click)="onConfirmEditcomment(i)" [disabled]="editedComment == null">Confirm changes</button>
+        <button class="btns" *ngIf="comment.commenter._id == user.id &&  comment._id == theComment"mat-mini-fab color="primary" (click)="cancel()">Cancel</button>
+        <button class="btns" *ngIf="comment.commenter._id == user.id &&  comment._id != theComment" mat-mini-fab color="warn" (click)="onDeleteComment(i)">Delete</button>
         <textarea *ngIf="comment.commenter._id == user.id && comment._id == theComment" type="text"[(ngModel)]="editedComment" [placeholder]='comment.comment'></textarea>
     </mat-card-actions>
   

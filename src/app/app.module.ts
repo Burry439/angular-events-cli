@@ -10,6 +10,7 @@ import { SigninComponent } from './components/signin/signin.component';
 import { AuthService } from './services/auth.service';
 import { ProfileComponent } from './components/profile/profile.component';
 import { GaurdService } from './services/gaurd.service';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
