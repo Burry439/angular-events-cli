@@ -1,0 +1,22 @@
+
+.event-image
+{
+  cursor: pointer;
+}
+
+.example-card {
+    max-width: 300px;
+    margin: 20px;
+    display: inline-block;
+  }
+
+  .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }
+
+  .details
+  {
+    cursor: pointer;
+    width:100%;
+  }

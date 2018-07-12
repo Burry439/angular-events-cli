@@ -1,0 +1,40 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport="false" 
+    mode="(isHandset$ | async) ? 'side' : 'side'"
+    >
+  
+    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-nav-list>
+      <a *ngIf="!authService.isLoggedIn()" mat-list-item [routerLink]="['/signIn']">Log In</a>
+      <a *ngIf="!authService.isLoggedIn()" mat-list-item [routerLink]="['/signUp']">signUp</a>
+      <a *ngIf="authService.isLoggedIn()" mat-list-item [routerLink]="['/profile']">Profile</a>
+      <a  mat-list-item [routerLink]="['/events']">Events</a>
+      <a *ngIf="authService.isLoggedIn()"  mat-list-item  (click)="logOut()">Log out</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        class="nav-button">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Angular Events</span>
+      <span class="spacer"></span>
+      <div class="open-nav">
+      <a *ngIf="!authService.isLoggedIn()" mat-raised-button color="accent" [routerLink]="['/signIn']">Log In</a>
+      <a *ngIf="!authService.isLoggedIn()" mat-raised-button color="accent" [routerLink]="['/signUp']">signUp</a>
+      <button mat-raised-button color="accent" [routerLink]="['/events']">Events</button>
+      <button *ngIf="authService.isLoggedIn()" mat-raised-button color="accent" [routerLink]="['/profile']">Profile</button>
+      <button *ngIf="authService.isLoggedIn()"  mat-raised-button color="accent" type="button" (click)="logOut()">Log out</button>
+    </div>
+    </mat-toolbar>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

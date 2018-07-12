@@ -1,0 +1,78 @@
+.example-card {
+    max-width: 300px;
+    margin: 20px;
+    display: inline-block;
+  }
+
+  .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }
+
+  div.polaroid {
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 25px;
+  }
+  
+  div.container {
+    text-align: center;
+    padding: 10px 20px;
+  }
+
+  agm-map {
+    height: 300px;
+  }
+
+  .carousel
+  {
+    cursor: pointer;
+  }
+
+  .pic
+  { 
+    cursor: pointer;
+  }
+
+  .join
+  {
+
+     margin: 20px 0px 0px 0px;
+     width: 100%;
+  }
+
+  .comments
+  {
+    margin: 20px 0px 0px 0px;
+    width: 100%;
+  }
+
+.log-in
+{
+  margin: 10px 0px 0px 20px;
+  width: 20%;
+}
+
+.sign-up
+{
+  margin: 10px 0px 0px 10px;
+  width: 20%;
+}
+
+.log-in-title
+{
+  margin: 10px 0px 0px 40px;
+}
+
+.event-options
+{
+  width:45%;
+  margin-left: 10px;
+}
+.change-pic
+{ 
+  margin-top: 10px;
+  margin-left:25px;
+  width:80%;
+}

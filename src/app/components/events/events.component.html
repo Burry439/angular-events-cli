@@ -1,0 +1,74 @@
+<p-growl></p-growl>
+<form action="">
+    <mat-radio-group class="example-radio-group" [(ngModel)]="filterType" name="filter" #filter="ngModel">
+        <mat-radio-button class="example-radio-button" *ngFor="let filter of filterTypes"  [value]="filter">
+          {{filter}}
+        </mat-radio-button>
+      </mat-radio-group>
+<input type="text" [(ngModel)]="searchTerm" class="form-control search-bar" name="searchTerm" placeholder="Search...">
+<button *ngIf="host" class="add-event" mat-raised-button style="background-color:#39B7CD; color:white" (click)="openCreateEventDialog()"> Add Event</button>
+
+</form>
+
+
+
+<div *ngIf="filterType == 'Name'" class="events">
+    <mat-card  class="example-card" *ngFor="let event of events | filtername:searchTerm ; let i = index" >
+
+        
+        <mat-card-header>
+          <!-- <img  [src]="event.host.profilePic" mat-card-avatar class="example-header-image"> -->
+          <!-- <mat-card-subtitle>created by:{{event.host.firstname}} {{event.host.lastname}}</mat-card-subtitle> -->
+          <mat-card-title>Name: {{event.name}}, {{month[event.date.month]}}/{{event.date.day}}/{{event.date.year}},  Attending:{{event.attending.length}}</mat-card-title>
+          <mat-card-subtitle> Time:{{event.time.hour}}:<span *ngIf="event.time.minute < 10"></span>{{event.time.minute}}</mat-card-subtitle>
+
+          
+         
+          <div>
+        </div>
+        </mat-card-header>
+        <img  mat-card-image [src]="event.image"  height="142" width="142" (click)="openImageDialog(event._id)" class="event-image">
+        <mat-card-content>
+            <label>Location</label>
+            <p> {{event.location.state}} {{event.location.city}} {{event.location.country}} {{event.location.country}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button class="details" mat-raised-button color="primary" (click)="openEventDialog(event._id)">More details</button>
+
+        </mat-card-actions>
+      </mat-card>
+</div>
+
+
+
+
+<div *ngIf="filterType == 'Country'" class="events">
+    <mat-card  class="example-card" *ngFor="let event of events | filterlocation:searchTerm ; let i = index" (click)="openEventDialog(event._id)">
+        <div class="overlay">
+              <div class="text">More details</div>
+            </div>
+        
+        <mat-card-header>
+
+          <img  [src]="event.host.profilePic" mat-card-avatar class="example-header-image">
+          <mat-card-subtitle>created by:{{event.host.firstname}} {{event.host.lastname}}</mat-card-subtitle>
+          <mat-card-title>Name: {{event.name}}, {{month[event.date.month]}}/{{event.date.day}}/{{event.date.year}},  Attending:{{event.attending.length}}</mat-card-title>
+          <mat-card-subtitle> Time:{{event.time.hour}}:<span *ngIf="event.time.minute < 10"></span>{{event.time.minute}}</mat-card-subtitle>
+          <div>
+        </div>
+        </mat-card-header>
+        <img  mat-card-image [src]="event.image"  height="142" width="142" >
+        <mat-card-content>
+            <h4>Location</h4>
+            <p> {{event.location.state}} {{event.location.city}} {{event.location.country}} {{event.location.country}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+      
+        </mat-card-actions>
+      </mat-card>
+        
+</div>  
+<div class="extra">
+
+</div>
+

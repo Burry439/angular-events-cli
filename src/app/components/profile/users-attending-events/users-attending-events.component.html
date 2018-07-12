@@ -1,0 +1,27 @@
+<ngx-slick  class="carousel" #slickModal="slick-modal" [config]="slideConfig">
+<mat-card ngxSlickItem class="example-card" *ngFor="let event of events; let i = index">
+  
+    <mat-card-header>
+
+      <mat-card-title>event name:{{event.name}}</mat-card-title>
+      <mat-card-subtitle> Date:{{month[event.date.month]}}/{{event.date.day}}/{{event.date.year}}</mat-card-subtitle>    
+      <mat-card-subtitle> Time:{{event.time.hour}}:<span *ngIf="event.time.minute < 10">0</span>{{event.time.minute}}</mat-card-subtitle>  
+      <mat-card-subtitle>Amount Attending:{{event.attending.length}}</mat-card-subtitle>
+      <div>
+    </div>
+    </mat-card-header>
+    <img class="event-image"  mat-card-image [src]="event.image"  height="142" width="142" (click)="openEventImageDialog(i)">
+    <label for="">About</label>
+    <p>{{event.location.state}} {{event.location.city}} {{event.location.country}}</p>
+
+    <mat-card-content>
+    </mat-card-content>
+    <mat-card-actions>
+        <button class="details" mat-raised-button color="primary" (click)="openDialog(i)">More details</button>
+
+    </mat-card-actions>
+  
+  </mat-card>
+</ngx-slick>
+
+  

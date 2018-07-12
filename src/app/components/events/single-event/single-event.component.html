@@ -1,0 +1,150 @@
+
+<div mat-dialog-content >
+  <mat-card-content>
+      <div mat-dialog-title *ngIf="loggedIn">
+          <button class="event-options" *ngIf="(event.host._id == user.id || event.host.id == user.id)  && !editMode && !editImageMode" mat-raised-button color="warn" (click)="onDeleteEvent()">delete</button>
+          <button class="event-options" *ngIf="(event.host._id == user.id || event.host.id == user.id) && !editMode && !editImageMode" mat-raised-button color="primary" (click)="onEditEvent()">Event</button>
+          <button class="change-pic" *ngIf="(event.host._id == user.id || event.host.id == user.id) && !editMode && !editImageMode" mat-raised-button color="accent" (click)="fileInput.click()">Change Image</button>
+          <button  *ngIf="editImageMode && !editMode" mat-raised-button color="primary" (click)="uploadPhoto()">save</button>
+          <button  *ngIf="editImageMode && !editMode"  mat-raised-button color="warn" (click)="cancel()">Cancel</button>
+          <button  *ngIf="editMode && !editImageMode" mat-raised-button color="primary" (click)="onCancelEventChanges()">Cancel changes</button>
+          <button  *ngIf="editMode && !editImageMode" type="submit" mat-raised-button color="accent" (click)="convertAddress()">confirm changes</button>
+          </div>
+          
+    
+
+
+    <form action=""  #f="ngForm"  *ngIf="editMode && loggedIn">
+      <div class="form-group" >
+        <label>Edit name</label>
+        <input  type="text" [ngModel]="event.name"  name="eventname" class="form-control" required >
+        <!-- <span *ngIf="!eventname.valid && eventname.touched">please enter a name</span> -->
+      </div>
+      
+      <div class="form-group" >
+          <div class="form-group" >
+              <label>Edit details</label>
+              <textarea [ngModel]="event.details" rows="4" cols="50"  #details=ngModel name="details" class="form-control" required  ></textarea>
+            </div>
+
+            <label>Edit location</label>
+            <div class="form-group" >
+              <label>Location</label>
+              <input type="text" [(ngModel)]="searchLocation" placeholder="Search for Location" autocorrect="off" autocapitalize="off" spellcheck="off" class="form-control" #search ngModel #location=ngModel name="location" required> 
+          </div>
+
+
+        <label>Edit date</label>
+          <input [ngModel]="data.eventDate"  #date=ngModel name="date" class="form-control" required matInput [matDatepicker]="picker" placeholder='Date:{{month[data.eventDate.month]}}/{{data.eventDate.day}}/{{data.eventDate.year}}'>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+
+          <label>Edit time</label>
+
+          <p-calendar  timeOnly="true" showTime="true" hourFormat="12"  [showIcon]="true" ngModel #time=ngModel name="time" placeholder='Time:{{data.eventTime.hour}}:{{data.eventTime.minute}}' required></p-calendar>
+
+
+      </div>
+      
+      </form>    
+  </mat-card-content>
+  <input  #fileInput style="display: none" type="file" (change)="onFileSelected($event)">
+</div>
+
+
+<div mat-dialog-content>
+  <mat-card *ngIf="event" class="example-card">
+    <div  class="form-group" enctype="multipart/form-data">
+      
+
+     
+    </div>
+  <mat-card-header>
+    <img (click)="openProfilePicDialog()"  [src]="event.host.profilePic" mat-card-avatar class="example-header-image" class="pic">
+    <mat-card-subtitle>created by:{{event.host.firstname}} {{event.host.lastname}}</mat-card-subtitle>
+    <mat-card-subtitle>name of the event:{{event.name}}</mat-card-subtitle>
+
+    <mat-card-subtitle>Date:{{month[data.eventDate.month]}}/{{data.eventDate.day}}/{{data.eventDate.year}}</mat-card-subtitle>
+    <mat-card-subtitle> Time:{{data.eventTime.hour}}:<span *ngIf="data.eventTime.minute < 10">0</span>{{data.eventTime.minute}}</mat-card-subtitle>
+
+    <mat-card-subtitle>Amount Attending:{{event.attending.length}}</mat-card-subtitle>
+    <div>
+   
+  </div>
+  </mat-card-header>
+  <img (click)="openEventPicDialog()" mat-card-image [src]="event.image"  height="142" width="142" class="pic">
+  <mat-card-content>
+    <h4>About</h4>
+    <p>
+        {{event.details}}
+    </p>
+
+    
+
+
+    <h4>Where</h4>
+    {{event.location.formattedAddress}} 
+    <agm-map [latitude]="event.location.lat" [longitude]="event.location.lng" >
+       <agm-marker [latitude]="event.location.lat" [longitude]="event.location.lng"></agm-marker>
+    </agm-map>
+  </mat-card-content>
+  <mat-card-actions>
+
+
+      <button *ngIf="!showAttending && event.attending.length > 0" mat-raised-button color="primary" style="width:100%" (click)="toggleAttending()"> see whos coming</button>
+      <button *ngIf="showAttending && event.attending.length > 0" mat-raised-button color="primary"  style="width:100%" (click)="toggleAttending()">Hide whos coming</button>
+      <div *ngIf="showAttending">
+          <hr>
+          <h1>Join these guys</h1>
+          <ngx-slick  class="carousel" #slickModal="slick-modal" [config]="slideConfig">
+  
+          
+          
+            <div class="polaroid" ngxSlickItem *ngFor="let attending of event.attending">
+                <img [src]="attending.profilePic" alt="Norway" style="width:100%">
+                <div class="container">
+                </div>
+                <h3>{{attending.firstname}} {{attending.lastname}}</h3>
+  
+              </div>
+  
+              </ngx-slick>
+      </div>
+  
+
+      <button class="comments" mat-raised-button color="accent" *ngIf="!showComments" mat-button (click)="toggleComments(i)">Show Comments</button>
+      <button class="comments" mat-raised-button color="accent" *ngIf="showComments" mat-button (click)="toggleComments(i)">Hide Comments</button>
+      <app-comments [eventId]="eventId" *ngIf="showComments"></app-comments>
+
+  </mat-card-actions>
+</mat-card>
+</div>
+
+
+<div mat-dialog-content >
+  <mat-card-header>
+
+  </mat-card-header>
+  <mat-card-content>
+
+    <div *ngIf="loggedIn">
+     
+    
+      <button class="join"  mat-raised-button color="primary" *ngIf="!joinedEvent" mat-button (click)="onJoinEvent(i)">Join</button>
+      <button class="join" mat-raised-button color="primary" *ngIf="joinedEvent" mat-button (click)="onLeaveEvent(i)">Leave</button>
+
+    </div>  
+    
+    <div *ngIf="!loggedIn"> 
+        <h3 class="log-in-title">Log in to join events</h3>
+       <button class="log-in" mat-raised-button color="primary" (click)=" toSignIn()">Log In</button>
+       <button class="sign-up" mat-raised-button color="accent" (click)=" toSignUp()">Sign up</button>
+
+    </div>
+   
+  </mat-card-content>
+    <mat-card-actions>
+
+
+  </mat-card-actions>
+</div>

@@ -1,0 +1,25 @@
+    <h4 *ngIf="comments">{{comments.length}} comments</h4>
+<mat-card class="example-card" *ngFor="let comment of comments; let i = index">
+  
+    <mat-card-header>
+        <mat-card-subtitle><img (click)="openImageDialog(i)" [src]="comment.commenter.profilePic" mat-card-avatar class="example-header-image">posted by:{{comment.commenter.firstname}} {{comment.commenter.lastname}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{comment.comment}}</p>
+    </mat-card-content>
+    <mat-card-actions *ngIf="loggedIn">
+        <button  *ngIf="comment.commenter._id == user.id && comment._id != theComment" mat-raised-button color="primary" (click)="onEditcomment(i)">Edit</button>
+        <button  *ngIf="comment.commenter._id == user.id &&  comment._id == theComment" mat-raised-button color="primary" (click)="onConfirmEditcomment(i)" [disabled]="editedComment == null">Confirm changes</button>
+        <button  *ngIf="comment.commenter._id == user.id &&  comment._id == theComment" mat-raised-button color="primary" (click)="cancel()">Cancel</button>
+        <button *ngIf="comment.commenter._id == user.id &&  comment._id != theComment"  mat-raised-button color="warn" (click)="onDeleteComment(i)">Delete</button>
+        <textarea *ngIf="comment.commenter._id == user.id && comment._id == theComment" type="text"[(ngModel)]="editedComment" [placeholder]='comment.comment'></textarea>
+    </mat-card-actions>
+  
+  </mat-card>
+
+<form *ngIf="loggedIn" #f="ngForm">  
+        <div class="form-group" >
+            <textarea rows="4" cols="50" ngModel #comment=ngModel name="comment" class="form-control" placeholder="comment" required></textarea>
+          </div>     
+    <button  [disabled]="!f.valid" (click)="onAddComment()" mat-raised-button color="primary">Add comment</button>
+    </form>

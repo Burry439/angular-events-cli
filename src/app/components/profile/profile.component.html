@@ -1,0 +1,46 @@
+
+<div *ngIf="user" class="body">
+    <p-growl></p-growl>
+
+
+      <div  class="container profileP">
+     <img class="profilePicture circle" [src]="user.profilePic" alt="" (click)="openEventImageDialog()">
+     <div class="overlay semi-circle" (click)="fileInput.click()">
+        <p class="text circle">Update</p>
+      </div>
+    </div>
+
+
+      <div class="welcome">
+      <h3 >Welcome</h3>
+        <h3 class="username">{{user.firstname}} {{user.lastname}}</h3>
+        
+          <div class="form-group" enctype="multipart/form-data">
+            <input  #fileInput style="display: none" type="file" (change)="onFileSelected($event)">
+            <button *ngIf="saveChange" mat-raised-button color="primary" type="button" (click)="uploadPhoto()">save</button>
+            <button *ngIf="saveChange" mat-raised-button color="accent" type="button" (click)="cancel()">Cancel</button>
+          </div>
+        </div>
+          
+
+
+<button  mat-raised-button color="primary" class="created-container" (click)="showCreatedEvents()">
+     {{user.events.length}} events  created
+</button>
+
+    <button mat-raised-button color="primary" class="attending-container" (click)="showAttendingEvents()">
+       {{user.attending.length}} events attending
+  </button>
+<app-users-created-events class="created-events" *ngIf="showMycreatedEvents" (deletedEvents)="deleteEvent($event)" (leaveEvents)="leaveEvent($event)" (joinedEvents)="joinEvent($event)"  (wrongFileFormat)="wrongFileFormat($event)" (eventUpdated)="eventUpdated($event)"></app-users-created-events>
+<app-users-attending-events class="attending-events" *ngIf="showMyattendingEvents" (deletedEvents)="deleteEvent($event)" (leaveEvents)="leaveEvent($event)" (joinedEvents)="joinEvent($event)" (wrongFileFormat)="wrongFileFormat($event)" (eventUpdated)="eventUpdated($event)"></app-users-attending-events>
+<button class="add-event" mat-raised-button style="background-color:#39B7CD; color:white" (click)="openCreateEventDialog()"> Add Event</button>
+
+</div>
+
+
+
+
+
+
+    
+

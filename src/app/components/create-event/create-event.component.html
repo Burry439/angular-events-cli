@@ -1,0 +1,47 @@
+<div mat-dialog-content >
+<mat-card>
+    <mat-card-header>
+        <h1 for="">Create an event</h1>
+    </mat-card-header>
+    <mat-card-content>
+
+<form action="" (submit)="convertAddress()" #f="ngForm">
+    <div class="form-group" >
+      <label>Event name</label>
+      <input type="textarea" ngModel #eventname=ngModel name="eventname" class="form-control" required >
+      <span *ngIf="!eventname.valid && eventname.touched">please enter a name</span>
+    </div>
+    
+    <div class="form-group" >
+        <div class="form-group" >
+            <label>Details</label>
+            <textarea rows="4" cols="50" ngModel #details=ngModel name="details" class="form-control" required></textarea>
+          </div>
+
+
+          <div class="form-group" >
+            <label>Location</label>
+            <input type="text" [(ngModel)]="searchLocation" placeholder="Search for Location" autocorrect="off" autocapitalize="off" spellcheck="off" class="form-control" #search ngModel #location=ngModel name="location" required> 
+            <span *ngIf="!valid"> Please enter a valid location</span>
+        </div>
+
+
+          <label>Date</label>
+          <input dateformat="dd-MMM-yyyy" matInput [matDatepicker]="picker" placeholder="Choose a date" ngModel #date=ngModel name="date" class="form-control" required>
+          <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+          <mat-datepicker #picker touchUi="true" ></mat-datepicker> 
+            <br>
+            <label>Time</label>
+          <p-calendar timeOnly="true" showTime="true" hourFormat="12"  [showIcon]="true" ngModel #time=ngModel name="time" required></p-calendar>
+
+
+
+
+            
+  
+     </div>
+    <input [disabled]="!f.valid" type="submit" class="btn btn-primary" value="add event">
+    </form>
+    </mat-card-content>
+  </mat-card>
+</div>
